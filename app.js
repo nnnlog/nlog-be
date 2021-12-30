@@ -8,6 +8,7 @@ const axios = require("axios");
 axios.interceptors.response.use(r => r, e => e.response);
 
 const config = require("./config");
+let save = {};
 
 const loadData = async () => {
 	let ret = {};
@@ -17,6 +18,8 @@ const loadData = async () => {
 		require("./lib/cf")(config.cf),
 		require("./lib/boj")(),
 	]).then(r => r.forEach(data => Object.assign(ret, data)));
+	ret = Object.assign(save, ret);
+	save = ret;
 	console.log(`${(new Date()).toLocaleString()} / ${JSON.stringify(ret)}`);
 	return ret;
 };
