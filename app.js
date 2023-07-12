@@ -25,7 +25,7 @@ const loadData = async () => {
 };
 
 loadData().then(data => {
-	require("node-schedule").scheduleJob("*/10 * * * *", async () => data = await loadData());
+	require("node-schedule").scheduleJob("0 * * * *", async () => data = await loadData());
 
 	app.use(cors({origin: "https://nlog.dev"}));
 	app.get("/", (req, res) => {
